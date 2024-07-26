@@ -10,8 +10,6 @@
     <network>
         <port auto-increment="true" port-count="100">5701</port>
         <outbound-ports>
-            <!-- Allowed port range when connecting to other nodes.
-                 0 or * means use system provided port. -->
             <ports>0</ports>
         </outbound-ports>
         <join>
