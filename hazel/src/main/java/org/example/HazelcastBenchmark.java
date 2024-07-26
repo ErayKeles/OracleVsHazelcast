@@ -13,19 +13,19 @@ public class HazelcastBenchmark {
     private static final int NUM_RECORDS_2 = 100000;
 
     public static void main(String[] args) {
-        // Hazelcast istemci konfigürasyonunu oluşturun
+        
         ClientConfig clientConfig = new ClientConfig();
         clientConfig.getNetworkConfig().addAddress("localhost"); // Hazelcast sunucu adresi
 
-        // Hazelcast kümesine bağlanın
+
         HazelcastInstance client = HazelcastClient.newHazelcastClient(clientConfig);
         IMap<Integer, Integer> map = client.getMap("benchmark");
 
-        // Benchmark testlerini çalıştırın
+     
         benchmarkHazelcast(map, 20000);
         benchmarkHazelcast(map, 100000);
 
-        // İstemciyi kapatmadan bekleme
+     
         System.out.println("Press Ctrl+C to shut down the client.");
         try {
             Thread.sleep(Long.MAX_VALUE); // İstemciyi kapatmadan bekle
@@ -33,7 +33,7 @@ public class HazelcastBenchmark {
             Thread.currentThread().interrupt();
         }
 
-        // İstemciyi kapatın
+        // İstemciyi kapat
         client.shutdown();
     }
 
@@ -41,7 +41,6 @@ public class HazelcastBenchmark {
         Random random = new Random();
         long startTime, endTime;
 
-        // Rastgele sayıları ekleyin
         startTime = System.nanoTime();
         for (int i = 0; i < numRecords; i++) {
             map.put(i, random.nextInt());
@@ -49,7 +48,6 @@ public class HazelcastBenchmark {
         endTime = System.nanoTime();
         System.out.println(numRecords + " put: " + TimeUnit.NANOSECONDS.toMillis(endTime - startTime) + " ms");
 
-        // Rastgele sayıları alın
         startTime = System.nanoTime();
         for (int i = 0; i < numRecords; i++) {
             map.get(random.nextInt(numRecords));
